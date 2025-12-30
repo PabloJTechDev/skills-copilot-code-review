@@ -3,6 +3,7 @@ MongoDB database configuration and setup for Mergington High School API
 """
 
 from pymongo import MongoClient
+from datetime import datetime
 from argon2 import PasswordHasher, exceptions as argon2_exceptions
 
 # Connect to MongoDB
@@ -10,6 +11,7 @@ client = MongoClient('mongodb://localhost:27017/')
 db = client['mergington_high']
 activities_collection = db['activities']
 teachers_collection = db['teachers']
+announcements_collection = db['announcements']
 
 # Methods
 
@@ -49,6 +51,11 @@ def init_database():
         for teacher in initial_teachers:
             teachers_collection.insert_one(
                 {"_id": teacher["username"], **teacher})
+
+    # Initialize announcements if empty
+    if announcements_collection.count_documents({}) == 0:
+        for announcement in initial_announcements:
+            announcements_collection.insert_one(announcement)
 
 
 # Initial database if empty
@@ -205,5 +212,30 @@ initial_teachers = [
         "display_name": "Principal Martinez",
         "password": hash_password("admin789"),
         "role": "admin"
+    }
+]
+
+
+def _utc_day_start(date_str: str) -> datetime:
+    """Convert YYYY-MM-DD into a UTC datetime at 00:00:00."""
+    return datetime.strptime(date_str, "%Y-%m-%d")
+
+
+def _utc_day_end(date_str: str) -> datetime:
+    """Convert YYYY-MM-DD into a UTC datetime at 23:59:59.999000."""
+    base = datetime.strptime(date_str, "%Y-%m-%d")
+    return base.replace(hour=23, minute=59, second=59, microsecond=999000)
+
+
+# Initial announcements seeded into the DB (only if collection is empty)
+initial_announcements = [
+    {
+        "message": "📢 Recordatorio: la inscripción a actividades está abierta. Consulta los cupos y registra estudiantes antes de la fecha límite.",
+        # Optional: start_date. If omitted, announcement is immediately eligible.
+        "start_date": None,
+        # Required: expiration_date
+        "expiration_date": _utc_day_end("2026-01-31"),
+        "created_at": datetime.utcnow(),
+        "updated_at": datetime.utcnow(),
     }
 ]

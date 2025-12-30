@@ -666,9 +666,165 @@ footer {
 }
 
 .announcement-banner {
-  background-color: #388e3c;
-  color: white;
+  background-color: var(--success);
+  color: var(--secondary-text);
   text-align: center;
-  padding: 15px;
-  font-weight: bold;
+  padding: 12px 15px;
+  font-weight: 600;
+  border-radius: 6px;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.announcement-banner-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: center;
+}
+
+.announcement-banner-item {
+  max-width: 1000px;
+  width: 100%;
+  padding: 6px 10px;
+  border-radius: 6px;
+  background-color: rgba(255, 255, 255, 0.12);
+}
+
+/* Header controls spacing */
+#user-info {
+  gap: 8px;
+}
+
+/* Announcements modal */
+.announcements-modal-content {
+  max-width: 820px;
+}
+
+.announcements-modal-layout {
+  display: flex;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.announcements-panel {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 12px;
+  flex: 1;
+}
+
+.announcements-panel h4 {
+  color: var(--primary);
+  font-size: 1rem;
+}
+
+.announcements-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.announcements-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 340px;
+  overflow: auto;
+  padding-right: 4px;
+}
+
+.announcement-row {
+  border: 1px solid var(--border-light);
+  border-radius: 6px;
+  padding: 10px;
+  background-color: var(--background);
+}
+
+.announcement-row-message {
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+  white-space: pre-wrap;
+}
+
+.announcement-row-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+}
+
+.announcement-row-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.announcement-row-actions button {
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+}
+
+.secondary-button {
+  background-color: var(--border);
+  color: var(--text-primary);
+}
+
+.secondary-button:hover {
+  background-color: var(--border-focus);
+}
+
+.danger-button {
+  background-color: var(--error);
+}
+
+.danger-button:hover {
+  background-color: var(--error);
+}
+
+.announcement-form-row {
+  display: flex;
+  gap: 10px;
+}
+
+.announcement-form-row .form-group {
+  flex: 1;
+}
+
+.announcement-form textarea {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  resize: vertical;
+  font-size: 0.85rem;
+}
+
+.announcement-form textarea:focus {
+  outline: none;
+  border-color: var(--primary-light);
+  box-shadow: 0 0 0 2px rgba(83, 75, 174, 0.1);
+}
+
+.announcement-form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+@media (max-width: 767px) {
+  .announcements-modal-layout {
+    flex-direction: column;
+  }
+
+  .announcement-form-row {
+    flex-direction: column;
+  }
 }
